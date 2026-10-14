@@ -1,0 +1,77 @@
+# ---------------------------------------------------------------------------
+# Job Radar settings. Edit freely; every run re-reads this file.
+# ---------------------------------------------------------------------------
+
+timezone: America/Los_Angeles
+
+digest:
+  # The digest goes out on the first run at or after this local time each day.
+  # GitHub's scheduler can run a few minutes late, so 06:35 lands the email around 7:00.
+  send_after: "06:35"
+  send_before: "10:00"        # if every run in the window failed, skip rather than send at noon
+  lookback_hours: 24
+  page_days: 14               # how many days of matches the web page keeps
+
+# Roles you want. Each role maps to the resume the digest will tell you to send.
+# Patterns are case-insensitive regular expressions matched against the job title.
+# You graduate May 2027. Jobs aimed at earlier graduates, or that start before this month, are dropped.
+graduation:
+  earliest_start: "2027-05"
+  # Entry-level jobs that never mention a year or start date usually want someone within weeks.
+  # Until this date they go in a separate lower section ("start date not stated");
+  # after it they're mixed in with everything else, since you can start soon after.
+  undated_jobs_join_main_list_on: "2027-02-01"
+
+roles:
+  - name: Data Engineer
+    resume: Data Engineer resume
+    title: '\b(data|analytics|etl|big data|data platform|data infrastructure)\s+(engineer|developer)\b|\bdata engineering\b'
+  - name: ML Engineer
+    resume: MLE resume
+    title: '\b(machine learning|ml|ai|mlops|deep learning|computer vision|nlp|llm|genai|applied ai)\b.*\b(engineer|developer)\b|\bapplied scientist\b|\bresearch engineer\b|\bml(e)?\b\s*(i|1)?$'
+  - name: Data Scientist
+    resume: Data Scientist resume
+    title: '\bdata scien(ce|tist)\b|\bdecision scien|\bquantitative analyst\b|\bmachine learning scientist\b'
+  - name: Data Analyst
+    resume: Data Scientist resume
+    title: '\b(data|business|product|analytics|bi|business intelligence|marketing|operations)\s+analyst\b|\bbusiness intelligence (engineer|developer)\b|\banalytics engineer\b'
+  - name: Software Engineer
+    resume: SDE resume
+    title: '\bsoftware (development )?(engineer(ing)?|developer)s?\b|\bsql (developer|engineer)\b|\bsde\b|\bswe\b|\bbackend (engineer|developer)\b|\bback[- ]end (engineer|developer)\b|\bfull[- ]?stack (engineer|developer)\b|\bplatform engineer\b|\bproduct engineer\b'
+
+# Skills pulled from your resumes. Used to score fit and to show "matches: ..." in the digest.
+skills:
+  Data Engineer: [Python, SQL, PySpark, Spark, Airflow, Snowflake, ClickHouse, DuckDB, PostgreSQL, MySQL, Hadoop, ETL, ELT, Docker, AWS, Kafka, dbt, data pipeline, data warehouse, data quality, CI/CD, GitHub Actions, Jenkins, Power BI, OLAP]
+  ML Engineer: [Python, PyTorch, scikit-learn, MLflow, DVC, Docker, FastAPI, TensorBoard, computer vision, CNN, LLM, RAG, LangGraph, agents, MLOps, AWS, GCP, Vertex AI, CI/CD, deep learning, transformers, model deployment, anomaly detection]
+  Data Scientist: [Python, SQL, statistics, A/B testing, experimentation, hypothesis testing, causal inference, scikit-learn, PyTorch, regression, classification, SHAP, pandas, NumPy, PySpark, anomaly detection, machine learning, ROC, power analysis]
+  Data Analyst: [SQL, Python, pandas, Power BI, Tableau, dashboards, A/B testing, statistics, Excel, PostgreSQL, data visualization, reporting, experimentation]
+  Software Engineer: [Python, Java, SQL, REST, APIs, FastAPI, Docker, AWS, GCP, PostgreSQL, distributed systems, backend, microservices, CI/CD, Git, algorithms, data structures, Linux]
+
+filters:
+  # Title words that always disqualify a job.
+  exclude_title: '\b(senior|sr\.?|staff|principal|lead|manager|management|director|head of|vp|vice president|architect|intern|internship|co-?op|apprentice(ship)?|fellowship|phd|ph\.d|postdoc|contract(or)?|part[- ]time|clearance|iii|iv|embedded|firmware|fpga|asic|hardware|mechanical|electrical|front[- ]?end|frontend|ios|android|mobile|qa|test|devops|sre|site reliability|salesforce developer|servicenow)\b|\b(engineer|scientist|analyst|developer)\s+(3|4|5)\b'
+  # Level II is usually 2+ years, but some companies label new-grad roles "II". Kept only when
+  # the title also clearly says new grad / early career.
+  level_two: '\b(ii|2)\b'
+  # Title words that mark a job as new-grad / entry level.
+  newgrad_title: '\b(new grad(uate)?|graduate|university|campus|college|entry[- ]level|early[- ]career|junior|jr\.?|associate|2026|2027|level 1|l1)\b|\b(engineer|scientist|analyst|developer)\s+(i|1)\b|\b(sde|swe|mle)\s*(i|1)\b'
+  # Description phrases that mark a job as new-grad / entry level.
+  newgrad_desc: '\bnew grad(uate)?s?\b|\brecent (college |university )?grad(uate)?s?\b|\bgraduating (in|by|between)\b|\bclass of 202[67]\b|\b(winter|spring|summer|fall|december|may|june) 202[67] grad|\bentry[- ]level\b|\bearly[- ]career\b|\buniversity grad(uate)?s?\b|\b0\s*[-–to]+\s*[12]\s*\+?\s*years?\b|\bno (prior )?(professional )?experience (is )?required\b'
+  # Jobs asking for more than this many years of experience are dropped. 1 keeps "0-1 years",
+  # "1+ years" (internships usually count) and "0-2 years", and drops "2+ years" and up.
+  max_min_years: 1
+  # Descriptions that need a PhD are dropped.
+  phd_required: '\bph\.?d\.?\s+(degree\s+)?(is\s+)?required\b|\brequires?\s+a\s+ph\.?d\b|\bcurrently (pursuing|enrolled in) a ph\.?d\b|\bph\.?d\.? (candidates?|students?) only\b'
+  # Phrases that suggest the employer will not sponsor a visa. These jobs are still listed,
+  # but at the bottom of the digest under "Sponsorship concerns".
+  visa_flags: '\b(not|unable to|cannot|can not|will not|won''t|do not|does not)\s+(be able to\s+)?(offer\s+|provide\s+)?(visa\s+|immigration\s+|employment\s+)?sponsor|\bno (visa |immigration |employment )?sponsorship\b|\bwithout (the need for )?(current or future )?(visa |employer |employment )?sponsorship\b|\bu\.?s\.? citizen(s|ship)? (is |are )?(required|only)\b|\bmust be (a )?u\.?s\.? citizen\b|\bsecurity clearance\b|\bactive (secret|top secret|ts/sci)\b|\bgreen card holders?\b|\bpermanent residents? only\b|\bitar\b'
+  # Defense / government contractors: nearly always require U.S. citizenship or a clearance.
+  citizenship_companies: [Leidos, Northrop Grumman, Lockheed Martin, Raytheon, RTX, General Dynamics, General Dynamics Information Technology, GDIT, BAE Systems, L3Harris, Booz Allen Hamilton, SAIC, CACI, Johns Hopkins Applied Physics Laboratory, MITRE, Peraton, ManTech, Parsons, Sierra Nevada Corporation, Sierra Space, Huntington Ingalls Industries, Textron, Leonardo DRS, Amentum, KBR, Battelle, Sandia National Laboratories, Lawrence Livermore National Laboratory, Los Alamos National Laboratory, Oak Ridge National Laboratory, Naval Nuclear Laboratory, i3 Corps, Northrop, Anduril, Shield AI, Palantir Federal]
+  # Locations. Jobs whose location only mentions these are dropped.
+  non_us: '\b(canada|toronto|vancouver|montreal|ontario|india|bengaluru|bangalore|hyderabad|pune|mumbai|delhi|gurgaon|gurugram|chennai|noida|uk|united kingdom|london|england|ireland|dublin|germany|berlin|munich|france|paris|netherlands|amsterdam|spain|madrid|barcelona|poland|warsaw|krakow|romania|czech|prague|portugal|lisbon|israel|tel aviv|singapore|japan|tokyo|china|beijing|shanghai|shenzhen|hong kong|taiwan|taipei|korea|seoul|australia|sydney|melbourne|brazil|são paulo|sao paulo|mexico|mexico city|argentina|colombia|philippines|vietnam|switzerland|zurich|sweden|stockholm|denmark|copenhagen|norway|finland|belgium|austria|italy|milan|emea|apac|latam|europe)\b'
+
+# Tier order for the digest: Big Tech first, startups last (your preference).
+tiers:
+  maang: [Meta, Facebook, Amazon, AWS, Amazon Web Services, Apple, Netflix, Google, Alphabet, Google DeepMind, DeepMind, Microsoft, LinkedIn, GitHub]
+  # Large / well-established companies that come through the GitHub lists (companies.yaml has its own tiers).
+  established: [NVIDIA, Salesforce, Adobe, Oracle, IBM, Intel, Cisco, Qualcomm, Uber, Lyft, Airbnb, Stripe, Databricks, Snowflake, Tesla, SpaceX, Bloomberg, Goldman Sachs, JPMorgan, JPMorgan Chase, Morgan Stanley, Capital One, Visa, Mastercard, American Express, PayPal, Intuit, Workday, ServiceNow, Palantir, Pinterest, Snap, DoorDash, Instacart, Coinbase, Robinhood, Dropbox, Atlassian, Block, Square, Cloudflare, Datadog, MongoDB, Twilio, Okta, HubSpot, Shopify, Spotify, Reddit, Discord, Roblox, Electronic Arts, Activision, Riot Games, Disney, Walmart, Target, Costco, Home Depot, Nike, Expedia, Booking, Wayfair, eBay, Etsy, Zillow, Yelp, Twitch, TikTok, ByteDance, Samsung, Sony, Siemens, Bosch, Boeing, Lockheed Martin, Northrop Grumman, Raytheon, RTX, General Motors, Ford, Rivian, Waymo, Cruise, Zoox, Aurora, Nuro, Two Sigma, Citadel, Citadel Securities, Jane Street, Hudson River Trading, Jump Trading, DE Shaw, D. E. Shaw, Optiver, IMC, SIG, Susquehanna, Akuna, Tower Research, Point72, Millennium, BlackRock, Fidelity, Vanguard, Charles Schwab, Wells Fargo, Bank of America, Citi, Citigroup, Deloitte, Accenture, McKinsey, Anthropic, OpenAI, Scale AI, Figma, Notion, Ramp, Plaid, Brex, Chime, Affirm, SoFi, Gusto, Rippling, Asana, Airtable, Duolingo, Grammarly, Samsara, Elastic, Confluent, Fivetran, dbt Labs, Splunk, VMware, Broadcom, AMD, Micron, Western Digital, Dell, HP, HPE, Juniper, Arista, Palo Alto Networks, CrowdStrike, Zscaler, Fortinet, Autodesk, Unity, Epic Games, Peloton, Squarespace, Toast, Chewy, Instacart, Uber Eats, Lucid, Applied Materials, KLA, Lam Research, Marvell, Synopsys, Cadence, Verizon, AT&T, T-Mobile, Comcast, Warner Bros, Paramount, NBCUniversal, Fox, Amgen, Genentech, Pfizer, Kaiser Permanente, UnitedHealth, Optum, CVS Health, Humana, Cigna, Elevance]

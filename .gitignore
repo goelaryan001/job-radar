@@ -1,0 +1,6 @@
+jobs.db
+_site/
+digest_preview.html
+__pycache__/
+.pytest_cache/
+.venv/

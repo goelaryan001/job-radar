@@ -1,0 +1,268 @@
+# ---------------------------------------------------------------------------
+# Where the tracker looks.
+#
+# feeds: whole-market sources (no company list needed)
+#   simplify, speedyapply : community new-grad lists on GitHub (cover Google, Meta, Apple + thousands more)
+#   amazon, microsoft, netflix : Big Tech careers sites read directly
+#   handshake : your Handshake saved-search alert emails (needs Gmail secrets)
+#
+# companies: one line per company, grouped by hiring platform.
+#   id   = the company's board name on that platform. Find it in the company's job URL, e.g.
+#          job-boards.greenhouse.io/<id>/... , jobs.lever.co/<id>/... , jobs.ashbyhq.com/<id>/...
+#          Workday: <tenant>.wdN/<site> from https://<tenant>.wdN.myworkdayjobs.com/<site>
+#   tier = established | startup   (Big Tech is detected automatically)
+#
+# If an id is wrong, that company shows up under "Recent errors" at the bottom of the
+# digest email. Fix or delete the line; nothing else breaks.
+# ---------------------------------------------------------------------------
+
+feeds: [simplify, speedyapply, amazon, microsoft, netflix, handshake]
+
+companies:
+  greenhouse:
+    # --- established ---
+    - {name: Airbnb, id: airbnb, tier: established}
+    - {name: Stripe, id: stripe, tier: established}
+    - {name: Databricks, id: databricks, tier: established}
+    - {name: Figma, id: figma, tier: established}
+    - {name: Coinbase, id: coinbase, tier: established}
+    - {name: Robinhood, id: robinhood, tier: established}
+    - {name: Lyft, id: lyft, tier: established}
+    - {name: Pinterest, id: pinterest, tier: established}
+    - {name: Dropbox, id: dropbox, tier: established}
+    - {name: Reddit, id: reddit, tier: established}
+    - {name: Discord, id: discord, tier: established}
+    - {name: Instacart, id: instacart, tier: established}
+    - {name: DoorDash, id: doordashusa, tier: established}
+    - {name: Roblox, id: roblox, tier: established}
+    - {name: Asana, id: asana, tier: established}
+    - {name: Cloudflare, id: cloudflare, tier: established}
+    - {name: Datadog, id: datadog, tier: established}
+    - {name: MongoDB, id: mongodb, tier: established}
+    - {name: Elastic, id: elastic, tier: established}
+    - {name: Twilio, id: twilio, tier: established}
+    - {name: Okta, id: okta, tier: established}
+    - {name: GitLab, id: gitlab, tier: established}
+    - {name: Samsara, id: samsara, tier: established}
+    - {name: Brex, id: brex, tier: established}
+    - {name: Chime, id: chime, tier: established}
+    - {name: Affirm, id: affirm, tier: established}
+    - {name: Gusto, id: gusto, tier: established}
+    - {name: Flexport, id: flexport, tier: established}
+    - {name: Airtable, id: airtable, tier: established}
+    - {name: Duolingo, id: duolingo, tier: established}
+    - {name: Squarespace, id: squarespace, tier: established}
+    - {name: Toast, id: toast, tier: established}
+    - {name: Anthropic, id: anthropic, tier: established}
+    - {name: Scale AI, id: scaleai, tier: established}
+    - {name: Waymo, id: waymo, tier: established}
+    - {name: SpaceX, id: spacex, tier: established}
+    - {name: Anduril, id: andurilindustries, tier: established}
+    - {name: Vercel, id: vercel, tier: established}
+    - {name: Nextdoor, id: nextdoor, tier: established}
+    - {name: Fivetran, id: fivetran, tier: established}
+    - {name: Cockroach Labs, id: cockroachlabs, tier: established}
+    - {name: Mixpanel, id: mixpanel, tier: established}
+    - {name: SoFi, id: sofi, tier: established}
+    - {name: Oscar Health, id: oscar, tier: established}
+    - {name: Riot Games, id: riotgames, tier: established}
+    - {name: Twitch, id: twitch, tier: established}
+    - {name: Nuro, id: nuro, tier: established}
+    - {name: Point72, id: point72, tier: established}
+    - {name: Jane Street, id: janestreet, tier: established}
+    - {name: Hudson River Trading, id: wehrtyou, tier: established}
+    - {name: IMC Trading, id: imc, tier: established}
+    - {name: Tower Research, id: towerresearchcapital, tier: established}
+    - {name: Peloton, id: peloton, tier: established}
+    - {name: Carta, id: carta, tier: established}
+    - {name: Faire, id: faire, tier: established}
+    - {name: Webflow, id: webflow, tier: established}
+    - {name: Gemini, id: gemini, tier: established}
+    - {name: Verkada, id: verkada, tier: established}
+    - {name: Rubrik, id: rubrik, tier: established}
+    - {name: Celonis, id: celonis, tier: established}
+    - {name: Intercom, id: intercom, tier: established}
+    - {name: PagerDuty, id: pagerduty, tier: established}
+    - {name: LaunchDarkly, id: launchdarkly, tier: established}
+    - {name: Betterment, id: betterment, tier: established}
+    - {name: Upstart, id: upstart, tier: established}
+    - {name: Zipline, id: flyzipline, tier: established}
+    - {name: Glean, id: gleanwork, tier: established}
+    - {name: Sigma Computing, id: sigmacomputing, tier: established}
+    - {name: Lucid Software, id: lucidsoftware, tier: established}
+    - {name: Zscaler, id: zscaler, tier: established}
+    - {name: Block, id: block, tier: established}
+    - {name: Relativity Space, id: relativity, tier: established}
+    - {name: Navan, id: tripactions, tier: established}
+    - {name: Calendly, id: calendly, tier: established}
+    - {name: Coursera, id: coursera, tier: established}
+    - {name: Udemy, id: udemy, tier: established}
+    - {name: StubHub, id: stubhubinc, tier: established}
+    - {name: Yext, id: yext, tier: established}
+    - {name: Gemini Trust, id: gemini, tier: established}
+    # --- startups ---
+    - {name: Abnormal Security, id: abnormalsecurity, tier: startup}
+    - {name: Cribl, id: cribl, tier: startup}
+    - {name: Starburst, id: starburst, tier: startup}
+    - {name: SingleStore, id: singlestore, tier: startup}
+    - {name: Imply, id: imply, tier: startup}
+    # --- moved here from another platform (checked 2026-10-13) ---
+    - {name: Attentive, id: attentive, tier: established}
+    - {name: Mercury, id: mercury, tier: established}
+    - {name: Figure AI, id: figureai, tier: startup}
+    - {name: CoreWeave, id: coreweave, tier: established}
+
+  lever:
+    - {name: Palantir, id: palantir, tier: established}
+    - {name: Spotify, id: spotify, tier: established}
+    - {name: Zoox, id: zoox, tier: established}
+    - {name: Shield AI, id: shieldai, tier: established}
+    - {name: Wealthfront, id: wealthfront, tier: established}
+    - {name: Outreach, id: outreach, tier: established}
+    - {name: Rover, id: rover, tier: established}
+    - {name: Field AI, id: field-ai, tier: startup}
+    # --- moved here from another platform (checked 2026-10-13) ---
+    - {name: Tinder / Match Group, id: matchgroup, tier: established}
+
+  ashby:
+    - {name: OpenAI, id: openai, tier: established}
+    - {name: Ramp, id: ramp, tier: established}
+    - {name: Notion, id: notion, tier: established}
+    - {name: Snowflake, id: snowflake, tier: established}
+    - {name: Quora, id: quora, tier: established}
+    - {name: Linear, id: linear, tier: startup}
+    - {name: Vanta, id: vanta, tier: startup}
+    - {name: Supabase, id: supabase, tier: startup}
+    - {name: Perplexity, id: perplexity, tier: startup}
+    - {name: Cohere, id: cohere, tier: startup}
+    - {name: Harvey, id: harvey, tier: startup}
+    - {name: Sierra, id: sierra, tier: startup}
+    - {name: Modal, id: modal, tier: startup}
+    - {name: Anyscale, id: anyscale, tier: startup}
+    - {name: Replit, id: replit, tier: startup}
+    - {name: Cursor (Anysphere), id: cursor, tier: startup}
+    - {name: ElevenLabs, id: elevenlabs, tier: startup}
+    - {name: Runway, id: runway, tier: startup}
+    - {name: Hex, id: hex, tier: startup}
+    - {name: PostHog, id: posthog, tier: startup}
+    - {name: Baseten, id: baseten, tier: startup}
+    - {name: Pinecone, id: pinecone, tier: startup}
+    - {name: Character.AI, id: character, tier: startup}
+    - {name: Clay, id: claylabs, tier: startup}
+    - {name: Cognition, id: cognition, tier: startup}
+    - {name: MotherDuck, id: motherduck, tier: startup}
+    - {name: Airbyte, id: airbyte, tier: startup}
+    - {name: Neon, id: neon, tier: startup}
+    - {name: Prefect, id: prefect, tier: startup}
+    - {name: Weaviate, id: weaviate, tier: startup}
+    - {name: LangChain, id: langchain, tier: startup}
+    - {name: Pika, id: pika, tier: startup}
+    - {name: Decagon, id: decagon, tier: startup}
+    - {name: Glide, id: glide, tier: startup}
+    - {name: Lovable, id: lovable, tier: startup}
+    - {name: Suno, id: suno, tier: startup}
+    - {name: Physical Intelligence, id: physicalintelligence, tier: startup}
+    - {name: Rho, id: rho, tier: startup}
+    - {name: Watershed, id: watershed, tier: startup}
+    - {name: Ironclad, id: ironcladhq, tier: startup}
+    - {name: Abridge, id: abridge, tier: startup}
+    - {name: Ambience Healthcare, id: ambiencehealthcare, tier: startup}
+    # --- moved here from another platform (checked 2026-10-13) ---
+    - {name: Thumbtack, id: thumbtack, tier: established}
+    - {name: ClickHouse, id: clickhouse, tier: established}
+    - {name: Amplitude, id: amplitude, tier: established}
+    - {name: Chainalysis, id: chainalysis-careers, tier: established}
+    - {name: Sentry, id: sentry, tier: established}
+    - {name: NerdWallet, id: nerdwallet, tier: established}
+    - {name: Benchling, id: benchling, tier: established}
+    - {name: Applied Intuition, id: applied, tier: established}
+    - {name: Temporal, id: temporal, tier: established}
+    - {name: Poshmark, id: poshmark, tier: established}
+    - {name: Astronomer, id: astronomer, tier: startup}
+    - {name: Hightouch, id: hightouch, tier: startup}
+    - {name: Hebbia, id: hebbia-ai, tier: startup}
+    - {name: Writer, id: writer, tier: startup}
+    - {name: Persona, id: persona, tier: startup}
+    - {name: Rula, id: rula, tier: startup}
+    - {name: Plaid, id: plaid, tier: established}
+    - {name: Mistral AI, id: mistral.ai, tier: startup}
+    - {name: Kraken, id: kraken.com, tier: established}
+    - {name: Whoop, id: whoop, tier: startup}
+    - {name: Saronic, id: saronic, tier: startup}
+
+  smartrecruiters:
+    - {name: Bosch, id: BoschGroup, tier: established}
+    - {name: ServiceNow, id: ServiceNow, tier: established}
+    - {name: Western Digital, id: WesternDigital, tier: established}
+    - {name: Ubisoft, id: Ubisoft2, tier: established}
+
+  workday:
+    - {name: NVIDIA, id: nvidia.wd5/NVIDIAExternalCareerSite, tier: established}
+    - {name: Salesforce, id: salesforce.wd12/External_Career_Site, tier: established}
+    - {name: Adobe, id: adobe.wd5/external_experienced, tier: established}
+    - {name: Intel, id: intel.wd1/External, tier: established}
+    - {name: PayPal, id: paypal.wd1/jobs, tier: established}
+    - {name: Capital One, id: capitalone.wd12/Capital_One, tier: established}
+    - {name: Disney, id: disney.wd5/disneycareer, tier: established}
+    - {name: Workday, id: workday.wd5/Workday, tier: established}
+    - {name: Mastercard, id: mastercard.wd1/CorporateCareers, tier: established}
+    - {name: CrowdStrike, id: crowdstrike.wd5/crowdstrikecareers, tier: established}
+    - {name: Autodesk, id: autodesk.wd1/Ext, tier: established}
+    - {name: Broadcom, id: broadcom.wd1/External_Career, tier: established}
+    - {name: HP, id: hp.wd5/ExternalCareerSite, tier: established}
+    - {name: Boeing, id: boeing.wd1/EXTERNAL_CAREERS, tier: established}
+    - {name: Comcast, id: comcast.wd115/Comcast_Careers, tier: established}
+    - {name: Warner Bros. Discovery, id: warnerbros.wd5/global, tier: established}
+    - {name: Zillow, id: zillow.wd5/Zillow_Group_External, tier: established}
+    - {name: Expedia, id: expedia.wd108/search, tier: established}
+    - {name: Pfizer, id: pfizer.wd1/PfizerCareers, tier: established}
+    - {name: Accenture, id: accenture.wd103/AccentureCareers, tier: established}
+    - {name: Fidelity, id: fmr.wd1/FidelityCareers, tier: established}
+    - {name: Morgan Stanley, id: ms.wd5/External, tier: established}
+    - {name: Bank of America, id: ghr.wd1/Lateral-US, tier: established}
+    - {name: Wells Fargo, id: wf.wd1/WellsFargoJobs, tier: established}
+    - {name: Target, id: target.wd5/targetcareers, tier: established}
+    - {name: Nike, id: nike.wd1/nke, tier: established}
+    - {name: Chevron, id: chevron.wd5/jobs, tier: established}
+    - {name: GE Vernova, id: gevernova.wd5/Vernova_ExternalSite, tier: established}
+    - {name: Motorola Solutions, id: motorolasolutions.wd5/Careers, tier: established}
+    - {name: Analog Devices, id: analogdevices.wd1/External, tier: established}
+    - {name: Marvell, id: marvell.wd1/MarvellCareers, tier: established}
+    - {name: Applied Materials, id: amat.wd1/External, tier: established}
+    - {name: Cisco, id: cisco.wd5/Cisco_Careers, tier: established}
+
+# ---------------------------------------------------------------------------
+# Removed 2026-10-13: these failed to load and no working public job board was found.
+# Most are still covered by the SimplifyJobs / SpeedyApply lists.
+#   greenhouse Grammarly (grammarly): rebranded as Superhuman; no public board found
+#   greenhouse dbt Labs (dbtlabsinc): no public board found
+#   greenhouse Aurora (aurorainnovation): no public board found
+#   greenhouse HubSpot (hubspot): uses its own careers site
+#   greenhouse Warby Parker (warbyparker): careers site unreachable
+#   greenhouse Opendoor (opendoor): no public board found
+#   greenhouse Postman (postman): no public board found
+#   greenhouse Marqeta (marqeta): no public board found
+#   greenhouse Unity (unity3d): no public board found
+#   greenhouse Cruise (cruise): shut down by GM
+#   greenhouse Quizlet (quizlet): no public board found
+#   greenhouse Etsy (etsy): no public board found
+#   greenhouse Bumble (bumble): Workday site down
+#   greenhouse Hinge (hinge): no own board (Match Group)
+#   greenhouse Dagster Labs (dagsterlabs): careers page now redirects to Prefect
+#   greenhouse Weights & Biases (wandb): acquired by CoreWeave (added CoreWeave)
+#   greenhouse Tecton (tecton): acquired by Databricks
+#   greenhouse Hippocratic AI (hippocraticai): no public board found
+#   lever      Eventbrite (eventbrite): acquired by Bending Spoons
+#   lever      Highspot (highspot): merged into Seismic
+#   ashby      Rippling (rippling): uses its own careers site
+#   ashby      Deel (deel): uses its own careers site
+#   ashby      Confluent (confluent): uses its own careers site
+#   ashby      Retool (retool): no public board found
+#   ashby      Benchmark Labs (benchmark): no public board found
+#   ashby      Skild AI (skild-ai): no public board found
+#   smartrecruiters Visa (Visa): SmartRecruiters board is empty
+#   workday    Walmart (walmart.wd5/WalmartExternal): Workday site gone
+#   workday    Dell (dell.wd1/External): Workday site gone
+#   workday    NetApp (netapp.wd1/NetApp): moved to Eightfold
+#   workday    Twilio Segment (twilio.wd1/Twilio): duplicate of Twilio (greenhouse)
+#   workday    Kaiser Permanente (kp.wd5/KPCareers): Workday site gone

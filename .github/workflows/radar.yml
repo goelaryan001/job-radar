@@ -1,0 +1,88 @@
+name: Job Radar
+
+on:
+  schedule:
+    # Every hour: collect new postings and refresh the web page.
+    - cron: "5 * * * *"
+    # Two extra runs at :40 so the 7 AM Pacific digest goes out on time in both
+    # daylight time (13:40 UTC = 6:40 AM PDT) and standard time (14:40 UTC = 6:40 AM PST).
+    # The code only sends once per day, on the first run after 6:35 AM Pacific.
+    - cron: "40 13,14 * * *"
+  workflow_dispatch:
+    inputs:
+      send_digest_now:
+        description: "Send the digest email right now (for testing)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write     # save the job database to the 'data' branch
+  pages: write        # publish the web page
+  id-token: write
+
+concurrency:
+  group: job-radar
+  cancel-in-progress: false
+
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Restore job database
+        run: |
+          if git fetch --depth=1 origin data 2>/dev/null; then
+            git show origin/data:jobs.db > jobs.db && echo "Restored $(du -h jobs.db | cut -f1) database"
+          else
+            echo "No saved database yet (first run)."
+          fi
+
+      - name: Collect jobs, build page, send digest if it's morning
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DIGEST_TO: ${{ secrets.DIGEST_TO }}
+          PAGE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+        run: |
+          python -m radar run
+          if [ "${{ inputs.send_digest_now }}" = "true" ]; then
+            python -m radar digest --force
+          fi
+
+      - name: Save job database to the 'data' branch
+        if: always() && hashFiles('jobs.db') != ''
+        run: |
+          mkdir -p /tmp/data && cp jobs.db /tmp/data/
+          cd /tmp/data
+          git init -q -b data
+          git config user.name "job-radar"
+          git config user.email "job-radar@users.noreply.github.com"
+          git add jobs.db
+          git commit -q -m "jobs.db $(date -u +%FT%TZ)"
+          # One commit, force-pushed: keeps the repo small no matter how long it runs.
+          git push -q -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" data
+
+      - uses: actions/upload-pages-artifact@v3
+        if: always() && hashFiles('_site/index.html') != ''
+        with:
+          path: _site
+
+  publish-page:
+    needs: radar
+    if: always() && needs.radar.result != 'cancelled'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4
